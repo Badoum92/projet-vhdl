@@ -18,4 +18,5 @@ end entity SIGNED_EXTENSION;
 
 architecture ARCH of SIGNED_EXTENSION is
 begin
+    E <= std_logic_vector(resize(signed(E), S'length));
 end architecture ARCH;
