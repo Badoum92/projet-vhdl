@@ -20,4 +20,12 @@ end entity MUX21;
 
 architecture ARCH of MUX21 is
 begin
+    process(COM, A, B)
+    begin
+        if COM = '0' then
+            S <= A;
+        else
+            S <= B;
+        end if;
+    end process;
 end architecture ARCH;
