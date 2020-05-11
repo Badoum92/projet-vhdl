@@ -60,9 +60,20 @@ begin
 
     process
     begin
+        N <= 'Z';
+        W <= (others => 'Z');
+        RA <= (others => 'Z');
+        RB <= (others => 'Z');
+        RW <= (others => 'Z');
+        WE <= '0';
+        A <= (others => 'Z');
+        B <= (others => 'Z');
+        OP <= (others => 'Z');
+
         RST <= '1';
         wait for 10 ns;
 
+        RST <= '0';
         RA <= std_logic_vector(to_unsigned(15, 4));
         RB <= std_logic_vector(to_unsigned(1, 4));
         OP <= "11";
