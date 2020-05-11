@@ -34,7 +34,7 @@ architecture ARCH of REGISTER_BENCH is
 begin
 
 
-process(CLK, RST)
+process(CLK, RST, WE, RW, W)
 begin
     if RST = '0' then
         Bench <= init_bench;
