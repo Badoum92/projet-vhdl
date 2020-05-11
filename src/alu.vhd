@@ -1,7 +1,7 @@
 library IEEE;
     use IEEE.std_logic_1164.all;
     use IEEE.numeric_std.all;
-    use IEEE.std_logic_signed.all
+    use IEEE.std_logic_signed.all;
 
 
 entity ALU is
@@ -19,23 +19,25 @@ end entity ALU;
 architecture ARCH of ALU is
 begin
     process(OP, A, B)
+        variable res : std_logic_vector(31 downto 0);
     begin
         case OP is
             when "00" =>
-                S <= A + B;
+                res := A + B;
             when "01" =>
-                S <= B
+                res := B;
             when "10" =>
-                S <= A - B;
+                res := A - B;
             when "11" =>
-                S <= A;
+                res := A;
             when others =>
                 null;
         end case;
-        if S < 0 then
+        if res < 0 then
             N <= '1';
         else
             N <= '0';
         end if;
+        S <= res;
     end process;
 end architecture ARCH;
