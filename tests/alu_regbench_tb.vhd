@@ -1,6 +1,7 @@
 library IEEE;
     use IEEE.std_logic_1164.all;
     use IEEE.numeric_std.all;
+    use IEEE.std_logic_signed.all;
 
 
 entity ALU_REGBENCH_TB IS
@@ -26,7 +27,7 @@ architecture Bench of ALU_REGBENCH_TB is
 begin
     process
     begin
-        while Now < 200 ns loop
+        while now < 300 ns loop
             CLK <= '0';
             wait for 5 ns;
             CLK <= '1';
@@ -59,8 +60,10 @@ begin
     );
 
     process
+        type table is array(15 downto 0) of std_logic_vector(31 downto 0);
+        variable reg : table;
     begin
-        N <= 'Z';
+        N <= '0';
         W <= (others => 'Z');
         RA <= (others => 'Z');
         RB <= (others => 'Z');
@@ -72,19 +75,105 @@ begin
 
         RST <= '1';
         wait for 10 ns;
-
         RST <= '0';
-        RA <= std_logic_vector(to_unsigned(15, 4));
-        RB <= std_logic_vector(to_unsigned(1, 4));
+
+        ----------
+        RA <= std_logic_vector(to_unsigned(1, 4));
+        RB <= std_logic_vector(to_unsigned(15, 4));
         OP <= "11";
         wait for 10 ns;
 
+        reg(1) := W;
         RW <= std_logic_vector(to_unsigned(1, 4));
         WE <= '1';
         wait for 10 ns;
 
-        OK <= A = B;
         WE <= '0';
+        wait for 10 ns;
+        ----------
+        RA <= std_logic_vector(to_unsigned(1, 4));
+        RB <= std_logic_vector(to_unsigned(15, 4));
+        OP <= "00";
+        wait for 10 ns;
+
+        reg(1) := W;
+        RW <= std_logic_vector(to_unsigned(1, 4));
+        WE <= '1';
+        wait for 10 ns;
+
+        OK <= W = (A + B);
+        WE <= '0';
+        wait for 10 ns;
+        ----------
+        RA <= std_logic_vector(to_unsigned(1, 4));
+        RB <= std_logic_vector(to_unsigned(15, 4));
+        OP <= "00";
+        wait for 10 ns;
+
+        reg(2) := W;
+        RW <= std_logic_vector(to_unsigned(2, 4));
+        WE <= '1';
+        wait for 10 ns;
+
+        OK <= W = (A + B);
+        WE <= '0';
+        wait for 10 ns;
+        ----------
+        RA <= std_logic_vector(to_unsigned(1, 4));
+        RB <= std_logic_vector(to_unsigned(15, 4));
+        OP <= "10";
+        wait for 10 ns;
+
+        reg(3) := W;
+        RW <= std_logic_vector(to_unsigned(3, 4));
+        WE <= '1';
+        wait for 10 ns;
+
+        OK <= W = (A - B);
+        WE <= '0';
+        wait for 10 ns;
+        ----------
+        RA <= std_logic_vector(to_unsigned(7, 4));
+        RB <= std_logic_vector(to_unsigned(15, 4));
+        OP <= "10";
+        wait for 10 ns;
+
+        reg(5) := W;
+        RW <= std_logic_vector(to_unsigned(5, 4));
+        WE <= '1';
+        wait for 10 ns;
+
+        OK <= W = (A - B);
+        WE <= '0';
+        wait for 10 ns;
+        ----------
+
+        RA <= std_logic_vector(to_unsigned(1, 4));
+        RB <= std_logic_vector(to_unsigned(15, 4));
+        OP <= "11";
+        wait for 10 ns;
+        OK <= reg(1) = W;
+        wait for 10 ns;
+
+        RA <= std_logic_vector(to_unsigned(2, 4));
+        RB <= std_logic_vector(to_unsigned(15, 4));
+        OP <= "11";
+        wait for 10 ns;
+        OK <= reg(2) = W;
+        wait for 10 ns;
+
+        RA <= std_logic_vector(to_unsigned(3, 4));
+        RB <= std_logic_vector(to_unsigned(15, 4));
+        OP <= "11";
+        wait for 10 ns;
+        OK <= reg(3) = W;
+        wait for 10 ns;
+
+        RA <= std_logic_vector(to_unsigned(5, 4));
+        RB <= std_logic_vector(to_unsigned(15, 4));
+        OP <= "11";
+        wait for 10 ns;
+        OK <= reg(5) = W;
         wait for 10 ns;
 
         wait;
