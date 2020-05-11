@@ -19,7 +19,7 @@ end entity;
 
 architecture ARCH of REGISTER_BENCH is
     type table is array(15 downto 0) of std_logic_vector(31 downto 0);
-    
+
     function init_bench return table is
         variable result : table;
     begin
@@ -36,7 +36,7 @@ begin
 
 process(CLK, RST, WE, RW, W)
 begin
-    if RST = '0' then
+    if RST = '1' then
         Bench <= init_bench;
     elsif rising_edge(CLK) then
         if WE = '1' then
