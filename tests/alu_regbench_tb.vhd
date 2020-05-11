@@ -56,14 +56,15 @@ begin
         OP => OP,
         A => A,
         B => B,
-        S => W
+        S => W,
+        N => N
     );
 
     process
         type table is array(15 downto 0) of std_logic_vector(31 downto 0);
         variable reg : table;
     begin
-        N <= '0';
+        N <= 'Z';
         W <= (others => 'Z');
         RA <= (others => 'Z');
         RB <= (others => 'Z');
