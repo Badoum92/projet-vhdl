@@ -15,7 +15,6 @@ port
 );
 end entity ALU;
 
-
 architecture ARCH of ALU is
 begin
     process(OP, A, B)

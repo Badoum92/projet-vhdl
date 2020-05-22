@@ -30,7 +30,7 @@ architecture ARCH of REGISTER_BENCH is
         return result;
     end;
 
-    signal Bench: table:= init_bench;
+    signal Bench: table := init_bench;
 begin
 
 
