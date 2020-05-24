@@ -11,7 +11,7 @@ port
     A  : in std_logic_vector(31 downto 0);
     B  : in std_logic_vector(31 downto 0);
     S  : out std_logic_vector(31 downto 0);
-    N  : out std_logic
+    N  : out std_logic;
 );
 end entity ALU;
 

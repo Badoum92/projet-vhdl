@@ -76,8 +76,8 @@ begin
     generic map (N => 4)
     port map
     (
-        A   => Rd,
-        B   => Rm,
+        A   => Rm,
+        B   => Rd,
         COM => RegSel,
         S   => Rb
     );

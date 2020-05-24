@@ -31,8 +31,8 @@ architecture ARCH of REGISTER_BENCH is
     end;
 
     signal Bench: table := init_bench;
-begin
 
+begin
 
 process(CLK, RST, WE, RW, W)
 begin
@@ -47,6 +47,5 @@ end process;
 
 A <= Bench(to_integer(unsigned(RA)));
 B <= Bench(to_integer(unsigned(RB)));
-
 
 end architecture;

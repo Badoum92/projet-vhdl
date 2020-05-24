@@ -35,6 +35,12 @@ architecture Bench of CPU_TB is
     signal spy_RegSel  : std_logic;
     signal spy_PSRDATA : std_logic_vector(31 downto 0);
     signal spy_PSRIN : std_logic_vector(31 downto 0);
+
+    signal spy_PC : std_logic_vector(31 downto 0);
+    type mem_table is array(63 downto 0) of std_logic_vector(31 downto 0);
+    signal spy_memory : mem_table;
+    type mem_reg is array(15 downto 0) of std_logic_vector(31 downto 0);
+    signal spy_reg : mem_reg;
 begin
 
     process
@@ -56,12 +62,16 @@ begin
         init_signal_spy("/cpu_tb/cpu_test/RegSel", "spy_RegSel");
         init_signal_spy("/cpu_tb/cpu_test/PSRDATA", "spy_PSRDATA");
         init_signal_spy("/cpu_tb/cpu_test/PSRIN", "spy_PSRIN");
+
+        init_signal_spy("/cpu_tb/cpu_test/instr_handler/PC", "spy_PC");
+        init_signal_spy("/cpu_tb/cpu_test/processing_unit/memory/cells", "spy_memory");
+        init_signal_spy("/cpu_tb/cpu_test/processing_unit/register_bench/Bench", "spy_reg");
         wait;
     end process;
 
     process
     begin
-        while now < 300 ns loop
+        while now < 1000 ns loop
             CLK <= '0';
             wait for 5 ns;
             CLK <= '1';
@@ -83,8 +93,10 @@ begin
         wait for 10 ns;
         RST <= '0';
 
-        OK <= spy_nPCsel = '0';
-        wait for 10 ns;
+        -- Wait for the end of the program
+        -- Check that the sum of memory values between 32 & 41 == 45
+        wait for 530 ns;
+        OK <= spy_memory(42) = 45;
 
         wait;
     end process;

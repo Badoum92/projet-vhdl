@@ -11,7 +11,7 @@ vcom -2008 ../src/instruction_handler.vhd
 vcom -2008 ../src/instruction_decoder.vhd
 vcom -2008 ../src/processing_unit.vhd
 vcom -2008 ../src/cpu.vhd
-vcom -2008 ../tests/cpu_tb1.vhd
+vcom -2008 ../tests/cpu_tb2.vhd
 
 vsim cpu_tb
 

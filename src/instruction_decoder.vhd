@@ -31,7 +31,7 @@ port
 end entity;
 
 architecture ARCH of INSTR_DECODER is
-    type instr_type is (MOV, ADDi, ADDr, CMP, LDR, STR, BAL, BLT);
+    type instr_type is (MOV, ADDi, ADDr, CMP, LDR, STR, BAL, BLT, BNE, STRGT, ADDGT);
     signal cur_instr : instr_type;
 begin
 
@@ -163,7 +163,7 @@ begin
                 PSREn <= '0';
                 MemWR <= '0';
                 WrSrc <= '1';
-                RegSel <= '0';
+                RegSel <= '1';
 
                 Rn <= Instruction(19 downto 16);
                 Rd <= Instruction(15 downto 12);
@@ -187,16 +187,22 @@ begin
             when STR =>
                 nPCsel <= '0';
                 RegWR <= '0';
-                ALUSrc <= '0';
+                ALUSrc <= '1';
                 ALUctr <= "00";
                 PSREn <= '0';
-                MemWR <= '0';
+                MemWR <= '1';
                 WrSrc <= '0';
                 RegSel <= '1';
 
                 Rn <= Instruction(19 downto 16);
                 Rd <= Instruction(15 downto 12);
                 Imm <= Instruction(7 downto 0);
+
+            when BNE =>
+
+            when STRGT =>
+
+            when ADDGT =>
         end case;
     end process;
 
