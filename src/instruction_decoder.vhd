@@ -41,7 +41,13 @@ begin
         if Instruction(27 downto 26) = "00" then
 
             if Instruction(25 downto 21) = "10100" then
-                cur_instr <= ADDi;
+
+                if Instruction(31 downto 28) = "1100" then
+                    cur_instr <= ADDGT;
+                else
+                    cur_instr <= ADDi;
+                end if;
+
             elsif Instruction(25 downto 21) = "00100" then
                 cur_instr <= ADDr;
             elsif Instruction(24 downto 21) = "1101" then
@@ -56,7 +62,13 @@ begin
             if Instruction(20) = '1' then
                 cur_instr <= LDR;
             elsif Instruction(20) = '0' then
-                cur_instr <= STR;
+
+                if Instruction(31 downto 28) = "1100" then
+                    cur_instr <= STRGT;
+                else
+                    cur_instr <= STR;
+                end if;
+
             end if;
 
         -- branches
@@ -66,6 +78,8 @@ begin
                 cur_instr <= BAL;
             elsif Instruction(31 downto 28) = "1011" then
                 cur_instr <= BLT;
+            elsif Instruction(31 downto 28) = "0001" then
+                cur_instr <= BNE;
             end if;
 
         end if;
@@ -199,10 +213,57 @@ begin
                 Imm <= Instruction(7 downto 0);
 
             when BNE =>
+                if PSR(1) = '0' then
+                    nPCsel <= '1';
+                else
+                    nPCsel <= '0';
+                end if;
+                RegWR <= '0';
+                ALUSrc <= '0';
+                ALUctr <= "00";
+                PSREn <= '0';
+                MemWR <= '0';
+                WrSrc <= '0';
+                RegSel <= '0';
+
+                Offset <= Instruction(23 downto 0);
 
             when STRGT =>
+                nPCsel <= '0';
+                RegWR <= '0';
+                ALUSrc <= '1';
+                ALUctr <= "00";
+                PSREn <= '0';
+                if PSR(1) = '0' and PSR(0) = '0' then
+                    MemWR <= '1';
+                else
+                    MemWR <= '0';
+                end if;
+                WrSrc <= '0';
+                RegSel <= '1';
+
+                Rn <= Instruction(19 downto 16);
+                Rd <= Instruction(15 downto 12);
+                Imm <= Instruction(7 downto 0);
 
             when ADDGT =>
+                nPCsel <= '0';
+                if PSR(1) = '0' and PSR(0) = '0' then
+                    RegWR <= '1';
+                else
+                    RegWR <= '0';
+                end if;
+                ALUSrc <= '1';
+                ALUctr <= "00";
+                PSREn <= '1';
+                MemWR <= '0';
+                WrSrc <= '0';
+                RegSel <= '0';
+
+                Rn <= Instruction(19 downto 16);
+                Rd <= Instruction(15 downto 12);
+                Rm <= Instruction(3 downto 0);
+                Imm <= Instruction(7 downto 0);
         end case;
     end process;
 

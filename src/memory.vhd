@@ -36,7 +36,23 @@ architecture ARCH of MEMORY is
         return result;
     end function;
 
-    signal cells : table := init_mem1;
+    function init_mem2 return table is
+        variable result : table;
+    begin
+        for i in 63 downto 0 loop
+            result(i) := (others=>'0');
+        end loop;
+        result(32) := std_logic_vector(to_signed(3, 32));
+        result(33) := std_logic_vector(to_signed(107, 32));
+        result(34) := std_logic_vector(to_signed(27, 32));
+        result(35) := std_logic_vector(to_signed(12, 32));
+        result(36) := std_logic_vector(to_signed(322, 32));
+        result(37) := std_logic_vector(to_signed(155, 32));
+        result(38) := std_logic_vector(to_signed(63, 32));
+        return result;
+    end function;
+
+    signal cells : table := init_mem2;
 begin
 process(CLK, WE, DATAIN, ADDR)
 begin

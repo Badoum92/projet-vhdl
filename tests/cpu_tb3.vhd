@@ -71,7 +71,7 @@ begin
 
     process
     begin
-        while now < 1000 ns loop
+        while now < 40000 ns loop
             CLK <= '0';
             wait for 5 ns;
             CLK <= '1';

@@ -18,7 +18,8 @@ port
     OP  : in std_logic_vector(1 downto 0);
     WrSrc : in std_logic;  -- select between AluOut or DataOut for busW
     MemWR  : in std_logic;
-    N : out std_logic
+    N : out std_logic;
+    Z : out std_logic
 );
 end entity;
 
@@ -71,7 +72,8 @@ begin
         A => A,
         B => AluInB,
         S => AluOut,
-        N => N
+        N => N,
+        Z => Z
     );
 
     MEMORY : entity work.MEMORY

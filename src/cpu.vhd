@@ -106,7 +106,8 @@ begin
         OP => ALUctr,
         WrSrc => WrSrc,
         MemWR => MemWR,
-        N => PSRIN(0)
+        N => PSRIN(0),
+        Z => PSRIN(1)
     );
 
 end architecture;

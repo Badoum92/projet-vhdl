@@ -12,6 +12,7 @@ port
     B  : in std_logic_vector(31 downto 0);
     S  : out std_logic_vector(31 downto 0);
     N  : out std_logic;
+    Z  : out std_logic
 );
 end entity ALU;
 
@@ -32,11 +33,19 @@ begin
             when others =>
                 null;
         end case;
+
         if res < 0 then
             N <= '1';
         else
             N <= '0';
         end if;
+
+        if res = 0 then
+            Z <= '1';
+        else
+            Z <= '0';
+        end if;
+
         S <= res;
     end process;
 end architecture ARCH;
