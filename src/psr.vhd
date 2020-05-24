@@ -16,19 +16,15 @@ port
 end entity;
 
 architecture ARCH of PSR is
-    signal reg : std_logic_vector(31 downto 0) := (others => '0');
 begin
     process(RST, CLK)
     begin
         if RST = '1' then
-            reg <= (others => '0');
+            DATAOUT <= (others => '0');
         elsif rising_edge(CLK) then
             if WE = '1' then
-                reg <= DATAIN;
+                DATAOUT <= DATAIN;
             end if;
         end if;
     end process;
-
-    DATAOUT <= reg;
-
 end architecture;

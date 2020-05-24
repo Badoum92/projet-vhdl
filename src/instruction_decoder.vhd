@@ -72,7 +72,7 @@ begin
 
     end process;
 
-    process(Instruction)
+    process(cur_instr)
     begin
         case cur_instr is
             when ADDi =>
