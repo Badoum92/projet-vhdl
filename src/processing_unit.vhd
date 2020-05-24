@@ -70,7 +70,8 @@ begin
         OP => OP,
         A => A,
         B => AluInB,
-        S => AluOut
+        S => AluOut,
+        N => N
     );
 
     MEMORY : entity work.MEMORY

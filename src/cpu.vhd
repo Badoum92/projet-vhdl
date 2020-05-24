@@ -8,53 +8,32 @@ entity CPU is
 port
 (
     CLK    : in std_logic;
-    RST    : in std_logic;
-
-    nPCsel : inout std_logic;
-    Offset : inout std_logic_vector(23 downto 0);
-    Instruction : inout std_logic_vector(31 downto 0);
-
-    Rn : inout std_logic_vector(3 downto 0);
-    Rd : inout std_logic_vector(3 downto 0);
-    Rm : inout std_logic_vector(3 downto 0);
-    Rb : inout std_logic_vector(3 downto 0);
-    Imm : inout std_logic_vector(7 downto 0);
-
-    RegWR : inout std_logic;
-    ALUSrc : inout std_logic; -- select between immediate or register B for ALU 2nd input
-    ALUctr  : inout std_logic_vector(1 downto 0);
-    PSREn : inout std_logic;
-    MemWR  : inout std_logic;
-    WrSrc : inout std_logic;  -- select between AluOut or DataOut for busW
-    RegSel  : inout std_logic;
-
-    PSRDATA : inout std_logic_vector(31 downto 0);
-    PSRIN : inout std_logic_vector(31 downto 0)
+    RST    : in std_logic
 );
 end entity;
 
 architecture ARCH of CPU is
 
-    -- signal nPCsel : std_logic;
-    -- signal Offset : std_logic_vector(23 downto 0);
-    -- signal Instruction : std_logic_vector(31 downto 0);
+    signal nPCsel : std_logic;
+    signal Offset : std_logic_vector(23 downto 0);
+    signal Instruction : std_logic_vector(31 downto 0);
 
-    -- signal Rn : std_logic_vector(3 downto 0);
-    -- signal Rd : std_logic_vector(3 downto 0);
-    -- signal Rm : std_logic_vector(3 downto 0);
-    -- signal Rb : std_logic_vector(3 downto 0);
-    -- signal Imm : std_logic_vector(7 downto 0);
+    signal Rn : std_logic_vector(3 downto 0);
+    signal Rd : std_logic_vector(3 downto 0);
+    signal Rm : std_logic_vector(3 downto 0);
+    signal Rb : std_logic_vector(3 downto 0);
+    signal Imm : std_logic_vector(7 downto 0);
 
-    -- signal RegWR : std_logic;
-    -- signal ALUSrc : std_logic; -- select between immediate or register B for ALU 2nd input
-    -- signal ALUctr  : std_logic_vector(1 downto 0);
-    -- signal PSREn : std_logic;
-    -- signal MemWR  : std_logic;
-    -- signal WrSrc : std_logic;  -- select between AluOut or DataOut for busW
-    -- signal RegSel  : std_logic;
+    signal RegWR : std_logic;
+    signal ALUSrc : std_logic; -- select between immediate or register B for ALU 2nd input
+    signal ALUctr  : std_logic_vector(1 downto 0);
+    signal PSREn : std_logic;
+    signal MemWR  : std_logic;
+    signal WrSrc : std_logic;  -- select between AluOut or DataOut for busW
+    signal RegSel  : std_logic;
 
-    -- signal PSRDATA : std_logic_vector(31 downto 0);
-    -- signal PSRIN : std_logic_vector(31 downto 0);
+    signal PSRDATA : std_logic_vector(31 downto 0) := (others => '0');
+    signal PSRIN : std_logic_vector(31 downto 0) := (others => '0');
 
 begin
 

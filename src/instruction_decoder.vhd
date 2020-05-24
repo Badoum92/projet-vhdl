@@ -72,8 +72,14 @@ begin
 
     end process;
 
-    process(cur_instr)
+    process(cur_instr, Instruction)
     begin
+        Offset <= (others => '0');
+        Rn <= (others => '0');
+        Rd <= (others => '0');
+        Rm <= (others => '0');
+        Imm <= (others => '0');
+
         case cur_instr is
             when ADDi =>
                 nPCsel <= '0';

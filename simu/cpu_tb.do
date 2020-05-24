@@ -1,17 +1,17 @@
 vlib work
 
-vcom -93 ../src/mux21.vhd
-vcom -93 ../src/signed_extension.vhd
-vcom -93 ../src/memory.vhd
-vcom -93 ../src/psr.vhd
-vcom -93 ../src/register_bench.vhd
-vcom -93 ../src/alu.vhd
-vcom -93 ../src/instruction_memory.vhd
-vcom -93 ../src/instruction_handler.vhd
-vcom -93 ../src/instruction_decoder.vhd
-vcom -93 ../src/processing_unit.vhd
-vcom -93 ../src/cpu.vhd
-vcom -93 ../tests/cpu_tb.vhd
+vcom -2008 ../src/mux21.vhd
+vcom -2008 ../src/signed_extension.vhd
+vcom -2008 ../src/memory.vhd
+vcom -2008 ../src/psr.vhd
+vcom -2008 ../src/register_bench.vhd
+vcom -2008 ../src/alu.vhd
+vcom -2008 ../src/instruction_memory.vhd
+vcom -2008 ../src/instruction_handler.vhd
+vcom -2008 ../src/instruction_decoder.vhd
+vcom -2008 ../src/processing_unit.vhd
+vcom -2008 ../src/cpu.vhd
+vcom -2008 ../tests/cpu_tb.vhd
 
 vsim cpu_tb
 
