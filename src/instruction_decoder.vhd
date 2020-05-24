@@ -157,7 +157,7 @@ begin
             when CMP =>
                 nPCsel <= '0';
                 RegWR <= '0';
-                ALUSrc <= '1';
+                ALUSrc <= Instruction(25);
                 ALUctr <= "10";
                 PSREn <= '1';
                 MemWR <= '0';

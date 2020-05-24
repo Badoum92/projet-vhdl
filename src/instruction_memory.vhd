@@ -57,23 +57,23 @@ begin
     for i in 63 downto 0 loop
         result (i):=(others=>'0');
     end loop;
-    result (0):=x"E3A00020";  -- 00 start:  MOV R0, #0x20
-    result (1):=x"E3A02001";  -- 01         MOV R2, #1
-    result (2):=x"E3A02000";  -- 02 WHILE:  MOV R2, #0
-    result (3):=x"E3A01001";  -- 03         MOV R1, #1
-    result (4):=x"E5903000";  -- 04 FOR:    LDR R3, [R0]
-    result (5):=x"E5904001";  -- 05         LDR R4, [R0,#1]
-    result (6):=x"E1530004";  -- 06         CMP R3, R4
-    result (7):=x"C5804000";  -- 07         STRGT R4, [R0]
-    result (8):=x"C5803001";  -- 08         STRGT R3, [R0,#1]
-    result (9):=x"C2822001";  -- 09         ADDGT R2, R2, #1
-    result (10):=x"E2800001"; -- 10         ADD R0, R0, #1
-    result (11):=x"E2811001"; -- 11         ADD R1, R1, #1
-    result (12):=x"E3510007"; -- 12         CMP R1, #0x7
-    result (13):=x"BAFFFFF6"; -- 13         BLT FOR
-    result (14):=x"E3520000"; -- 14         CMP R2, #0
-    result (15):=x"E3A00020"; -- 15         MOV R0, #0x20
-    result (16):=x"1AFFFFF1"; -- 16         BNE WHILE
+    result (0):=x"E3A00020";  -- 00 start:  MOV R0, #0x20      -- R0 = 0x20
+    result (1):=x"E3A02001";  -- 01         MOV R2, #1         -- R2 = 1
+    result (2):=x"E3A02000";  -- 02 WHILE:  MOV R2, #0         -- R2 = 0
+    result (3):=x"E3A01001";  -- 03         MOV R1, #1         -- R1 = 1
+    result (4):=x"E5903000";  -- 04 FOR:    LDR R3, [R0]       -- R3 = DATAMEM[R0]
+    result (5):=x"E5904001";  -- 05         LDR R4, [R0,#1]    -- R4 = DATAMEM[R0+1]
+    result (6):=x"E1530004";  -- 06         CMP R3, R4         -- if (R3 > R4)
+    result (7):=x"C5804000";  -- 07         STRGT R4, [R0]     --   DATAMEM[R0] = R4
+    result (8):=x"C5803001";  -- 08         STRGT R3, [R0,#1]  --   DATAMEM[R0+1] = R3
+    result (9):=x"C2822001";  -- 09         ADDGT R2, R2, #1   --   R2 = R2 + 1
+    result (10):=x"E2800001"; -- 10         ADD R0, R0, #1     -- R0 = R0 + 1
+    result (11):=x"E2811001"; -- 11         ADD R1, R1, #1     -- R1 = R1 + 1
+    result (12):=x"E3510007"; -- 12         CMP R1, #0x7       --
+    result (13):=x"BAFFFFF6"; -- 13         BLT FOR            -- for (R1, 1, 7)
+    result (14):=x"E3520000"; -- 14         CMP R2, #0         --
+    result (15):=x"E3A00020"; -- 15         MOV R0, #0x20      -- R0 = 0x20
+    result (16):=x"1AFFFFF1"; -- 16         BNE WHILE          -- while (r2 != 0)
     result (17):=x"EAFFFFFF"; -- 17 wait:   BAL wait
     return result;
 end function;

@@ -71,7 +71,7 @@ begin
 
     process
     begin
-        while now < 40000 ns loop
+        while now < 2800 ns loop
             CLK <= '0';
             wait for 5 ns;
             CLK <= '1';
@@ -93,10 +93,14 @@ begin
         wait for 10 ns;
         RST <= '0';
 
-        -- Wait for the end of the program
-        -- Check that the sum of memory values between 32 & 41 == 45
-        wait for 530 ns;
-        OK <= spy_memory(42) = 45;
+        wait for 2700 ns;
+        OK <= spy_memory(32) = 3
+              and spy_memory(33) = 12
+              and spy_memory(34) = 27
+              and spy_memory(35) = 63
+              and spy_memory(36) = 107
+              and spy_memory(37) = 155
+              and spy_memory(38) = 322;
 
         wait;
     end process;
